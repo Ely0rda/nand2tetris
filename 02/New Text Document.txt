@@ -1,0 +1,31 @@
+
+How can I design the zx,zy,nx,xy,f,no?
+    - demultiplexers
+        The porblem is that the demux chips
+        I have don't look appropriate for
+        the ALU
+    - Using basic gates
+        The problem is I need to do a lot of 
+        work
+    - Using multiplexer 
+        I have a good multiplexers for doing int
+        Problem is that I will do all the calculation
+        first and using the controlors I will chose
+        which one to pass to the next step.
+        I think this will make the ALU slow,because
+        it is going to waste time on doing operation
+        that I may not need, but this is my best
+        bet for now, so let 's do it, then we can check
+        if my implementation is the right one.
+
+
+
+//negating logic
+Not16(in=x,out=notx)
+//zeroing x
+we can take advantage of the notx calculate by
+not 16
+
+And16(a=x,b=notx,out=zero16);
+
+//negating logic
