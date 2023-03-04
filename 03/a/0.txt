@@ -1,0 +1,10 @@
+// Not(in=load,out=notload);
+    // Register(in=outRe3,load=notload,out=outRe1);
+    // Mux16(a=outRe1, b=in, sel=load, out=outRe2);
+    // Not16(in=outRe2, out=outNot);
+    // And16(a=outRe2, b=outNot, out=outRes);
+    // Inc16(in=outRe2, out=outInc0);
+    // Register(in=outInc0,load=inc,out=outInc);
+    
+    
+    // Mux4Way16(a=outRe2, b=outInc, c=outRes, d=outRe2, sel[0]=inc,sel[1]=reset, out=out, out=outRe3);
