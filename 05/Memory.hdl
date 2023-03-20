@@ -27,5 +27,27 @@ CHIP Memory {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
-}
+    //the adress size is 15 btis
+    //The first left most bit will be the determinator if the input
+    //is going to the RAM or io(Screen +Keyboard)
+    //==> Dmux for determining where the input is going Ram or io
+        //If the first bit is 0 then the ram
+    DMux(in=load, sel=address[0], a=m, b=io);
+        //RAM---------------------------------------------------------------------
+        //Address 15 bits : 0 to 16383 in binary: 0-00000000000000 to 0-11111111111111
+    RAM16k(in=in,load=m,address=address[1..14],out=outm);
+        //If the first bit is 1 then the io devices
+        //Adress 15 bits : 16384 to 24576 in binary : 100000000000000  to 110000000000000
+    //Now the input devices have two memories 8k for screen and 1 register for keyboard
+    //Scren adresses will be from 10-0000000000000 to 10-1111111111111
+    //Keyboard adresse will be 11-0000000000000
+    //The second left most bit will be used to determine if the input is going to
+    //the keyboard ot to the screen
+    // DMux(in=io, sel=address[1], a=s, b=k);
+    //     //if the second bit is 0 the input goes to the screen
+        Screen(in=in, load=io, address=address[2..14], out=outs);
+    Keyboard(out=outk);
+    //A Mux for selecting either the Screen output or the keyboard output
+    Mux16(a=outs, b=outk, sel=address[1], out=outio);
+    Mux16(a=outm, b=outio, sel=address[0], out=out);
+    }
